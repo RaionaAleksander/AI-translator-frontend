@@ -1,0 +1,80 @@
+<div class="p-10 w-full mx-auto space-y-6">
+
+  <div class="flex gap-4">
+    <div class="flex-1"></div>
+    <div class="flex-1 relative flex justify-start">
+      <button 
+        #dropdownButton
+        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+        (click)="toggleDropdown()">
+        {{ selectedLanguage }}
+        <span class="ml-2">{{ isDropdownOpen ? '▲' : '▼' }}</span>
+      </button>
+
+      @if (isDropdownOpen) {
+        <div
+          #dropdownPanel
+          class="absolute top-full left-0 mt-1 w-96 h-64 bg-white border border-gray-300 rounded shadow-lg z-50 overflow-y-auto"
+          >
+
+          <div class="grid grid-cols-2 divide-x divide-gray-200">
+                <div>
+                        @for (lang of leftLanguages; track lang) {
+                        <button
+                        class="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors"
+                        (click)="selectLanguage(lang)"
+                        >
+                        {{ lang }}
+                        </button>
+                        }
+                </div>
+                <div>
+                        @for (lang of rightLanguages; track lang) {
+                        <button
+                        class="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors"
+                        (click)="selectLanguage(lang)"
+                        >
+                        {{ lang }}
+                        </button>
+                        }
+                </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="flex gap-4">
+    <textarea
+      class="flex-1 min-w-0 border border-gray-300 rounded p-4 resize-none h-48"
+      placeholder="Write text to translate..."
+      [value]="inputText"
+      (input)="inputText = $any($event.target).value"
+    ></textarea>
+
+    <textarea
+      class="flex-1 min-w-0 border border-gray-300 rounded p-4 resize-none h-48 bg-gray-50"
+      placeholder="Translated text will appear here..."
+      readonly
+      [value]="outputText"
+    ></textarea>
+  </div>
+
+  <div class="flex gap-4">
+    <div class="flex-1">
+      <button
+        class="px-6 py-3 bg-green-600 text-white rounded hover:bg-green-700 transition-colors
+        disabled:bg-gray-700 disabled:cursor-not-allowed disabled:hover:bg-gray-700"
+        [disabled]="!canTranslate()"
+        (click)="translate()"
+        >
+        Translate
+      </button>
+    </div>
+    <div class="flex-1">
+    </div>
+  </div>
+
+</div>
+
+<router-outlet></router-outlet>

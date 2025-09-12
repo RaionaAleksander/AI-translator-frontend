@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "tailwindcss";
+
+html {
+    overflow-y: scroll;
+}
+
+body {
+    background-color: var(--color-gray-50);
+}
