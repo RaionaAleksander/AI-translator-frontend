@@ -18,26 +18,26 @@
           >
 
           <div class="grid grid-cols-2 divide-x divide-gray-200">
-                <div>
-                        @for (lang of leftLanguages; track lang) {
-                        <button
-                        class="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors"
-                        (click)="selectLanguage(lang)"
-                        >
-                        {{ lang }}
-                        </button>
-                        }
-                </div>
-                <div>
-                        @for (lang of rightLanguages; track lang) {
-                        <button
-                        class="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors"
-                        (click)="selectLanguage(lang)"
-                        >
-                        {{ lang }}
-                        </button>
-                        }
-                </div>
+            <div>
+              @for (lang of leftLanguages; track lang) {
+                <button
+                class="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors"
+                (click)="selectLanguage(lang)"
+                >
+                  {{ lang }}
+                </button>
+              }
+            </div>
+            <div>
+              @for (lang of rightLanguages; track lang) {
+                <button
+                class="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors"
+                (click)="selectLanguage(lang)"
+                >
+                  {{ lang }}
+                </button>
+              }
+            </div>
           </div>
         </div>
       }
@@ -45,19 +45,42 @@
   </div>
 
   <div class="flex gap-4">
-    <textarea
-      class="flex-1 min-w-0 border border-gray-300 rounded p-4 resize-none h-48"
-      placeholder="Write text to translate..."
-      [value]="inputText"
-      (input)="inputText = $any($event.target).value"
-    ></textarea>
+    <div class="flex-1 flex flex-col border h-48 border-gray-300 bg-gray-50 rounded p-0 overflow-hidden">
+      <textarea
+        class="flex-1 p-4 resize-none border-0 focus:ring-0 focus:outline-none placeholder-gray-800"
+        placeholder="Write text to translate..."
+        [value]="inputText"
+        (input)="inputText = $any($event.target).value"
+        maxlength="1000"
+      ></textarea>
 
-    <textarea
-      class="flex-1 min-w-0 border border-gray-300 rounded p-4 resize-none h-48 bg-gray-50"
-      placeholder="Translated text will appear here..."
-      readonly
-      [value]="outputText"
-    ></textarea>
+      <div class="flex justify-end p-1">
+        <p class="px-1 py-1 text-sm text-gray-600 mr-2 select-none">
+          {{ inputText.length }} / 1000
+        </p>
+      </div>
+    </div>
+
+    <div class="flex-1 flex flex-col border h-48 border-gray-100 bg-gray-100 rounded p-0 overflow-hidden">
+      <textarea
+        class="flex-1 p-4 resize-none border-0 focus:ring-0 focus:outline-none placeholder-gray-800"
+        placeholder="Translated text will appear here..."
+        readonly
+        [value]="outputText"
+      ></textarea>
+
+      <div class="flex justify-end p-1">
+        @if (outputText.trim() !== '') {
+          <button
+            class="px-2 py-1 text-gray-700 hover:bg-gray-300 rounded"
+            (click)="copyOutputText()"
+            title="Copy translated text"
+          >
+            📋
+          </button>
+        }
+      </div>
+    </div>
   </div>
 
   <div class="flex gap-4">
@@ -66,7 +89,7 @@
         class="px-6 py-3 bg-green-600 text-white rounded hover:bg-green-700 transition-colors
         disabled:bg-gray-700 disabled:cursor-not-allowed disabled:hover:bg-gray-700"
         [disabled]="!canTranslate()"
-        (click)="translate()"
+        (click)="translateText()"
         >
         Translate
       </button>
@@ -75,6 +98,13 @@
     </div>
   </div>
 
+  @if (showCopyNotification) {
+    <div
+      class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded shadow-lg z-50 transition-opacity duration-500"
+    >
+      ✓ Translation copied
+    </div>
+  }
 </div>
 
 <router-outlet></router-outlet>

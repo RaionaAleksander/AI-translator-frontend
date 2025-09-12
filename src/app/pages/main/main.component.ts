@@ -16,6 +16,8 @@ export class MainComponent {
   selectedLanguage: string = 'Select Language';
 
   isDropdownOpen: boolean = false;
+  showCopyNotification: boolean = false;
+  isHiding: boolean = false;
 
   languages: string[] = [
     'Arabic', 'Bulgarian', 'Chinese (Simplified)', 'Chinese (Traditional)', 'Czech',
@@ -52,7 +54,7 @@ export class MainComponent {
 
   constructor(private translateService: TranslateService) { }
   
-  translate() {
+  translateText() {
     if (!this.inputText.trim() || this.selectedLanguage === 'Select Language') return;
 
     this.outputText = '';
@@ -66,6 +68,25 @@ export class MainComponent {
         }
     });
   }
+
+
+
+  copyOutputText() {
+    if (!this.outputText.trim()) return;
+
+    navigator.clipboard.writeText(this.outputText)
+    .then(() => {
+      this.showCopyNotification = true;
+
+      setTimeout(() => {
+        this.showCopyNotification = false;
+      }, 1000);
+    })
+    .catch(err => {
+      console.error('Failed to copy text: ', err);
+    });
+  }
+
   
 
 
