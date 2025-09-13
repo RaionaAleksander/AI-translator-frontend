@@ -61,11 +61,14 @@ export class MainComponent {
 
     this.outputText = '';
 
+    console.log(`Translating to ${this.selectedLanguage}: ${this.inputText}`);
+
     this.translateService.translateText(this.inputText, this.selectedLanguage)
       .subscribe({
         next: (res) => {
-        if (res.translatedText === 'No translation needed') {
-          this.displayErrorNotification('🗙 No translation needed');
+        if (res.translatedText === 'No translation needed.') {
+          this.displayErrorNotification('🗙 No translation needed.');
+          console.log('No translation needed.');
           this.outputText = '';
         } else {
           this.outputText = res.translatedText;
@@ -74,6 +77,7 @@ export class MainComponent {
       error: (err) => {
         console.error('Translation error:', err);
         this.displayErrorNotification('⚠ Translation failed. Please try again.');
+        console.log(err);
         this.outputText = '';
       }
     });
