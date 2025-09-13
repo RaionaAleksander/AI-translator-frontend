@@ -1,8 +1,16 @@
 <div class="p-10 w-full mx-auto space-y-6">
 
+  @if (showErrorNotification) {
+    <div
+      class="fixed top-10 left-1/2 transform -translate-x-1/2 bg-red-300 text-white px-4 py-3 rounded shadow-lg z-50 transition-opacity duration-500"
+    >
+      {{ errorMessage }}
+    </div>
+  }
+
   <div class="flex gap-4">
-    <div class="flex-1"></div>
-    <div class="flex-1 relative flex justify-start">
+    <div class="flex-1 hidden sm:block"></div>
+    <div class="flex-1 relative flex justify-end sm:justify-start">
       <button 
         #dropdownButton
         class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
@@ -14,7 +22,7 @@
       @if (isDropdownOpen) {
         <div
           #dropdownPanel
-          class="absolute top-full left-0 mt-1 w-96 h-64 bg-white border border-gray-300 rounded shadow-lg z-50 overflow-y-auto"
+          class="absolute top-full left-0 mt-1 w-full max-w-full h-80 sm:h-64 bg-white border border-gray-300 rounded shadow-lg z-50 overflow-y-auto"
           >
 
           <div class="grid grid-cols-2 divide-x divide-gray-200">
@@ -44,14 +52,15 @@
     </div>
   </div>
 
-  <div class="flex gap-4">
-    <div class="flex-1 flex flex-col border h-48 border-gray-300 bg-gray-50 rounded p-0 overflow-hidden">
+  <div class="flex gap-4 flex-col sm:flex-row">
+    <div class="flex-1 flex flex-col border border-gray-300 bg-gray-50 rounded p-0 overflow-hidden">
       <textarea
-        class="flex-1 p-4 resize-none border-0 focus:ring-0 focus:outline-none placeholder-gray-800"
+        class="p-4 min-h-32 sm:min-h-40 resize-none border-0 focus:ring-0 focus:outline-none placeholder-gray-800 overflow-auto"
         placeholder="Write text to translate..."
         [value]="inputText"
-        (input)="inputText = $any($event.target).value"
+        (input)="onInputChange($event)"
         maxlength="1000"
+        #inputArea
       ></textarea>
 
       <div class="flex justify-end p-1">
@@ -61,12 +70,13 @@
       </div>
     </div>
 
-    <div class="flex-1 flex flex-col border h-48 border-gray-100 bg-gray-100 rounded p-0 overflow-hidden">
+    <div class="flex-1 flex flex-col border border-gray-100 bg-gray-100 rounded p-0 overflow-hidden">
       <textarea
-        class="flex-1 p-4 resize-none border-0 focus:ring-0 focus:outline-none placeholder-gray-800"
+        class="p-4 min-h-32 sm:min-h-40 resize-none border-0 focus:ring-0 focus:outline-none placeholder-gray-800 overflow-auto"
         placeholder="Translated text will appear here..."
         readonly
         [value]="outputText"
+        #outputArea
       ></textarea>
 
       <div class="flex justify-end p-1">
