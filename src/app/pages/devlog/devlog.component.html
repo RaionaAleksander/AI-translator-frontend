@@ -1,1 +1,84 @@
-<p>devlog.component works!</p>
+<div
+  class="mx-auto my-6 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl 
+         bg-gray-50 border border-black rounded-lg shadow-md
+         p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12
+         font-mono text-sm sm:text-base md:text-lg text-gray-900 text-left whitespace-pre-wrap"
+>
+    Hello, Developer's Diary!
+    <br><br>
+    Today I want to share what I managed to achieve in the project in just under a week. The notes here will stay brief and high-level, rather than detailed. I only started keeping this diary toward the end of the work, not from the very beginning.
+    <br><br>
+    <b>Idea</b>
+    <br><br>
+    Before development began, everything started with an idea.
+    <br><br>
+    At first, I was using different online translators to handle text, but once I tried using AI for translation, the results were noticeably better. Not only was the text more accurate, but the AI could also adapt to a specific style if I asked it to.
+    <br><br>
+    That's when the idea came: to create a simple website where a user could type in text, choose a target language, and hit “Translate.” The request would then be sent via the OpenAI API, and the translated result would be displayed directly on the page.
+    <br><br>
+    <b>Planning and Structure</b>
+    <br><br>
+    The next step was to design the structure of the project and decide how everything would work together.
+    <br><br>
+    To make it functional, I needed to implement both the frontend and the backend.
+    <br><br>
+    The <u>frontend</u> is the client-facing side of the application — it allows the user to enter text, select a language, and hit the “Translate” button. After that, it sends the data to the backend.
+    <br><br>
+    The <u>backend</u> is the server side of the project, responsible for handling REST API requests and communicating with the OpenAI model to generate the translations.
+    <br><br>
+    <b>Frontend Development</b>
+    <br><br>
+    I started the development with the frontend.
+    <br><br>
+    For this part of the project, I chose Angular, a popular web framework built on TypeScript, which adds strong typing on top of JavaScript. For styling, I used Tailwind CSS, a utility-first CSS framework that allows you to apply styles directly through HTML classes.
+    <br><br>
+    Since both Angular and Tailwind were new to me, I first had to spend some time learning the basics. Once I felt more comfortable, I began by creating the main translation page, along with a navigation bar to move between different sections of the site. After setting up the structure, I gradually worked on the core functionality of the translation page, while also ensuring that the layout was responsive across different screen sizes.
+    <br><br>
+    <b>Backend Development</b>
+    <br><br>
+    Once the frontend structure was in place, I moved on to building the backend — the server-side part of the project. For this, I used Node.js, a JavaScript runtime environment that allows developers to build scalable server applications outside the browser.
+    <br><br>
+    Before I could start making requests, I logged into the <a href="https://platform.openai.com/" target="_blank" rel="noopener noreferrer" class="text-blue-400">OpenAI Platform</a>
+    and generated a secret API key under the <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" class="text-blue-400">API keys page</a>.
+    This key is stored securely on the backend, ensuring that it never gets exposed to the client side.
+    <br><br>
+    For the core translation engine, I chose GPT-3.5 Turbo because it is more cost-effective than GPT-4 while still providing solid translation quality.
+    <br><br>
+    After setting up the environment, I created the main server file and implemented a POST endpoint. This endpoint takes input text from the frontend, sends it along with the selected language to the OpenAI API, and then returns the translated result back to the client. This way, the backend acts as a secure bridge between the frontend and the OpenAI model.
+    <br><br>
+    <b>A Frustrating Issue During Testing</b>
+    <br><br>
+    When I finally launched both the client and server projects to test the application, I immediately ran into an error. The backend threw an HTTP 429 response, which indicates too many requests or that the monthly usage quota has been exceeded. More about this error can be found in the <a href="https://platform.openai.com/docs/guides/error-codes" target="_blank" rel="noopener noreferrer" class="text-blue-400">OpenAI API error documentation</a>.
+    <br><br>
+    To continue testing the project, I had to add funds to my OpenAI account. However, there was a small unpleasant surprise: on top of the €5 minimum deposit, an additional €1.20 was charged as tax. Even though it was frustrating, I decided to go through with it — and once the payment was complete, the project was finally ready for full implementation and testing.
+    <br><br>
+    <b>Project Testing</b>
+    <br><br>
+    After resolving the payment issue, I moved on to testing the project. Both the frontend and backend worked smoothly, but the real challenges came from the translation model itself. Sometimes the responses were not what I expected.
+    <br><br>
+    I ran several different types of tests:
+    <ul class="list-disc list-inside space-y-1 text-left">
+        <li><b>Different source and target languages</b> → should return the translation.</li>
+        <li><b>Same source and target languages</b> → should return "No translation needed."</li>
+        <li><b>Unreadable or random text</b> → should return "No translation needed."</li>
+        <li><b>Mixed-language input</b> (part of the text in one language, another part in the same as the target) → should still handle correctly.</li>
+    </ul>
+    <br><br>
+    The expected result was either a clean translation or the message "No translation needed." This was important to prevent unexpected outputs from suddenly appearing in the text field.
+    <br><br>
+    In the end, I settled on the request format that you can now find in the project. It's not perfect and doesn't cover all edge cases, but it's a workable solution. If you have a better idea for handling this, feel free to reach out to me — I'd be glad to hear it.
+    <br><br>
+    <b>Final Thoughts</b>
+    <br><br>
+    Despite some challenges with crafting the request and a few unexpected expenses, I am satisfied with the final outcome.
+    <br><br>
+    My initial goal was to build a small yet fully functional web application with both frontend and backend — and I successfully achieved that. While the issue with the request remains, the application still fulfills its core purpose, and that alone is a great result.
+    <br><br>
+    The request can always be refined in the future to improve stability. Beyond that, I see plenty of opportunities to expand the project: adding new features, enhancing existing components, and making the user experience even better.
+    <br><br>
+    Most importantly, I turned an idea into a working project. Looking ahead, I plan to work on larger and more ambitious projects, and the experience I gained here will serve as a strong foundation for the next step.
+    <br><br>
+    <br><br>
+    <br><br>
+    Aleksander Ontin
+</div>
